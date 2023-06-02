@@ -13,11 +13,16 @@ const obj = {
 
 function convert(obj) {
   const newObj = {};
-  newObj.x = obj.inner.x;
-  newObj.y = obj.y;
-  newObj.z = obj.inner.z;
-  newObj.k = obj.foo2.k;
-  newObj.p = obj.foo2.p;
+	function convertRecursion(object) {
+		for (let key in object) {
+			if (typeof object[key] === 'object' && !Array.isArray(object[key])) {
+				convertRecursion(object[key]);
+			} else {
+				newObj[key] = object[key];
+			}
+		}
+	}
+	convertRecursion(obj);
   return newObj;
 }
 
